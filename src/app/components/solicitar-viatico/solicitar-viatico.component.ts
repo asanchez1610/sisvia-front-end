@@ -190,6 +190,7 @@ export class SolicitarViaticoComponent implements OnInit {
     this.isMayor6Horas = document.getElementById('chkMayor6Horas')['checked'];
     if (this.isMayor6Horas) {
       this.showPernocta = true;
+      this.isPernocta = true;
     } else {
       this.showPernocta = false;
       this.isPernocta = false;

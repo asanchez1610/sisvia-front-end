@@ -181,10 +181,11 @@ export class AsignarViaticoFormComponent implements OnInit {
       empleado.area.centrocosto &&
       empleado.area.centrocosto.presupuesto &&
       empleado.area.centrocosto.presupuesto.presupuestoasignado) {
-      if (empleado.area.centrocosto.presupuesto.presupuestoasignado < parseFloat(this.totalMonto)){
-        this.showDialog('Error', 'El Área no cuenta con el presupuesto suficiente.', 'error');
-        return;
-      }
+      let presupuestoDisponible = (empleado.area.centrocosto.presupuesto.presupuestoasignado - empleado.area.centrocosto.presupuesto.presupuestoejecutado)
+          if (presupuestoDisponible < parseFloat(this.totalMonto)){
+            this.showDialog('Error', 'El Área no cuenta con el presupuesto suficiente.', 'error');
+            return;
+        }
       
     }
 
