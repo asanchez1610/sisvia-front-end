@@ -1,0 +1,6 @@
+
+<app-nav-bar [title]="title" (changeTitle)="updateTitle($event)" [subTitle]="subTitle" (changeSubTitle)="updateSubTitle($event)" ></app-nav-bar>
+<div class="container main-container">
+    <app-header-sesion [title]="title" (changeTitle)="updateTitle($event)" [subTitle]="subTitle" (changeSubTitle)="updateSubTitle($event)" ></app-header-sesion>
+    <router-outlet></router-outlet>
+</div>

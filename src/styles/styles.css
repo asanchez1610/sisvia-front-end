@@ -1,0 +1,139 @@
+
+/* You can add global styles to this file, and also import other style files */
+.main-container{
+    margin-top: 66px;
+    margin-bottom: 20px;
+}
+
+.bg-gris-light{
+    background-color: #f5f5f5 !important;
+ }
+
+ .bg-gris-light-strong{
+    background-color: #eeee !important;
+ }
+
+ .panel-border-gris{
+     border-color: #ccc !important;
+ }
+
+ .panel-border-top-gris{
+    border-top-color: #ccc !important;
+}
+
+
+.label-form{
+    margin-top: 8px;
+    text-align: right;
+}
+
+.label-form label{
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+}
+
+@media only screen and (max-width: 767px) {
+    .label-form{
+        margin-top: 0px;
+        text-align: left;
+    }
+}
+
+.row-contenedor{
+    margin-top: 10px;
+}
+
+.card-body-contenedor-form-fields{
+    padding-bottom: 5px !important;
+}
+
+.card-body-contenedor-busqueda{
+    padding-top: 10px !important;
+    padding-bottom: 0px !important;
+}
+
+.margin-top-10{
+    margin-top: 10px;
+}
+
+.margin-top-5{
+    margin-top: 5px;
+}
+
+.form-checked-form{
+    margin-top: 8px;
+}
+
+.form-checked-form span{
+    font-size: 15px;
+}
+
+.btn-toogle-datepicker{
+    border: 1px #ccc solid !important;
+}
+
+.btn-toogle-datepicker img{
+    width: 1.2rem; height: 1rem; cursor: pointer;
+}
+
+.btn-svg{
+    border: 1px #ccc solid !important;
+}
+
+.btn-svg img{
+    width: 1.1rem; height: 1.1rem; cursor: pointer;
+}
+
+.info-diferencia-dias{
+    padding-bottom: 5px !important;
+    padding-top: 5px !important; 
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+}
+
+.margin-right-5{
+    margin-right: 5px;
+}
+
+.margin-right-10{
+    margin-right: 10px;
+}
+
+.btn-actions-form{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+}
+
+
+td{
+    vertical-align: middle !important;
+}
+
+.logo{
+    width: 26px;
+    height: 27px;
+    margin-right: 10px;
+}
+
+.label-tarjeta{
+    font-weight: bold;
+}
+
+.content-detalle-tarjeta{
+    line-height: 28px;
+    font-family: 'Lato', sans-serif;
+}
+
+.error-msg-alert{
+    padding-bottom: 7px !important;
+    padding-top: 7px !important;
+    margin-bottom: 0px !important;
+}
+
+.margin-bottom-0{
+    margin-bottom: 0px !important;
+}
+
+.text-sombreado{
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}

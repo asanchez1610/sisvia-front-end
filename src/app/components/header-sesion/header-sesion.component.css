@@ -1,0 +1,15 @@
+.header-sesion{
+    padding-top: 15px;
+    border-bottom: 2px #ccc solid;
+    border-left: 1px #ccc solid;
+    border-right: 1px #ccc solid;
+}
+
+.header-titulo-modulo{
+    font-size: 18px;
+    color: #000;
+}
+
+.header-sub-titulo-modulo{
+color: #666;
+}

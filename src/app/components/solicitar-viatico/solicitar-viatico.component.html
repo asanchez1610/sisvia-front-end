@@ -1,0 +1,229 @@
+<div>
+  <ngx-loading [show]="loadingRegistro" [config]="{ }"></ngx-loading>
+
+  <form [formGroup]="angularForm" novalidate>
+
+    <div class="card bg-gris-light panel-border-gris">
+      <div class="card-body card-body-contenedor-form-fields">
+        <ngx-loading [show]="loadingComisionado" [config]="{ }"></ngx-loading>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-2 label-form">
+              <label>DNI:</label>
+            </div>
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 form-group margin-bottom-0">
+              <div class="input-group">
+                <input formControlName="dniBusquedaComisionado" type="text" [(ngModel)]="txtDni" class="form-control">
+                <div class="input-group-append">
+                  <button class=" btn btn-primary" (click)="buscarComisionado()">Buscar</button>
+                </div>
+              </div>
+              <div *ngIf="angularForm.controls['dniBusquedaComisionado'].invalid && (angularForm.controls['dniBusquedaComisionado'].dirty || angularForm.controls['dniBusquedaComisionado'].touched)"
+                class="alert alert-primary error-msg-alert">
+                <div *ngIf="angularForm.controls['dniBusquedaComisionado'].errors.required">
+                  Falta ingresar.
+                </div>
+              </div>
+            </div>
+            <div *ngIf="panelBusquedaComisionado" class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+              <label>Nombre comisionado:</label>
+            </div>
+            <div *ngIf="panelBusquedaComisionado" class="col-12 col-sm-12 col-md-5 col-lg-5">
+              <input type="text" value="{{empleadoComisionado.apellido}} {{empleadoComisionado.nombre}}" class="form-control" disabled>
+            </div>
+          </div>
+          <div *ngIf="panelBusquedaComisionado">
+            <div class="row-contenedor">
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+                  <label>DNI del comisionado:</label>
+                </div>
+                <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+                  <input type="text" class="form-control" disabled value="{{empleadoComisionado.numerodocuento}}">
+                </div>
+                <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+                  <label>Centro de costo:</label>
+                </div>
+                <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+                  <input type="text" class="form-control" disabled value="{{empleadoComisionado.area?.centrocosto?.nomcc}}">
+                </div>
+                <div class="col-12 col-sm-12 col-md-1 col-lg-1 label-form">
+                  <label>Categoría:</label>
+                </div>
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+                  <input type="text" class="form-control" disabled value="{{empleadoComisionado.categoria?.nomcategoria}}">
+                </div>
+              </div>
+            </div>
+            <div class="row-contenedor">
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+                  <label>Área:</label>
+                </div>
+                <div class="col-12 col-sm-12 col-md-10 col-lg-10">
+                  <input type="text" class="form-control" disabled value="{{empleadoComisionado.area?.nomarea}}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card margin-top-10 bg-gris-light panel-border-gris">
+      <div class="card-body">
+        <div class="row-contenedor">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+              <label>Tipo de comision:</label>
+            </div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group margin-bottom-0">
+              <ng-select [(ngModel)]="tComisionValue" formControlName="comisionesCmb" [items]="tcomisiones" bindLabel="nomcomision" bindValue="tipocomisionId"
+                placeholder="Seleccione">
+              </ng-select>
+              <div *ngIf="angularForm.controls['comisionesCmb'].invalid && (angularForm.controls['comisionesCmb'].dirty || angularForm.controls['comisionesCmb'].touched)"
+                class="alert alert-primary error-msg-alert">
+                <div *ngIf="angularForm.controls['comisionesCmb'].errors.required">
+                  Falta ingresar.
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-1 col-lg-1 label-form">
+              <label>Destino:</label>
+            </div>
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 form-group margin-bottom-0">
+              <ng-select [(ngModel)]="destinoValue" formControlName="destinoCmb" (change)="seleccionarDestino($event)" [items]="destinos"
+                bindLabel="nomdestino" bindValue="destinoId" placeholder="Seleccione">
+              </ng-select>
+              <div *ngIf="angularForm.controls['destinoCmb'].invalid && (angularForm.controls['destinoCmb'].dirty || angularForm.controls['destinoCmb'].touched)"
+                class="alert alert-primary error-msg-alert">
+                <div *ngIf="angularForm.controls['destinoCmb'].errors.required">
+                  Falta ingresar.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+              <div class="form-check form-checked-form">
+                <label class="form-check-label">
+                  <input class="form-check-input" disabled [checked]="disabledZonaCritica" type="checkbox">
+                  <span>Zona critica</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row-contenedor">
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+                <label>Fecha inicio:</label>
+              </div>
+              <div class="col-12 col-sm-12 col-md-3 col-lg-3 form-group margin-bottom-0">
+                <div class="input-group">
+                  <input class="form-control" formControlName="fechaInicial" (dateSelect)="seleccionarFechas($event)" name="fInicio" [(ngModel)]="fechaInicio"
+                    ngbDatepicker #fIni="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary btn-toogle-datepicker" (click)="fIni.toggle()" type="button">
+                      <img src="assets/img/calendar-icon.svg" />
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="angularForm.controls['fechaInicial'].invalid && (angularForm.controls['fechaInicial'].dirty || angularForm.controls['fechaInicial'].touched)"
+                  class="alert alert-primary error-msg-alert">
+                  <div *ngIf="angularForm.controls['fechaInicial'].errors.required">
+                    Falta ingresar.
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+                <label>Fecha Fin:</label>
+              </div>
+              <div class="col-12 col-sm-12 col-md-3 col-lg-3 form-group margin-bottom-0">
+                <div class="input-group">
+                  <input class="form-control" formControlName="fechaFinal" (dateSelect)="seleccionarFechas($event)" name="fFin" [(ngModel)]="fechaFin"
+                    ngbDatepicker #fFin="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary btn-toogle-datepicker" (click)="fFin.toggle()" type="button">
+                      <img src="assets/img/calendar-icon.svg" />
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="angularForm.controls['fechaFinal'].invalid && (angularForm.controls['fechaFinal'].dirty || angularForm.controls['fechaFinal'].touched)"
+                  class="alert alert-primary error-msg-alert">
+                  <div *ngIf="angularForm.controls['fechaFinal'].errors.required">
+                    Falta ingresar.
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+                <div *ngIf="showMsgDias" class="alert alert-{{successDias}} info-diferencia-dias">
+                  <strong>Duracion:</strong> {{msgDias}}.
+                </div>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="isMasDe5" >
+              <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+                &nbsp;
+              </div>
+              <div class="col-12 col-sm-12 col-md-10 col-lg-10">
+                  <div class="alert alert-dismissible alert-primary text-center">
+                      <strong>Los viáticos a partir del sexto día cubren solo 60% de gastos</strong>
+                    </div>
+                </div>
+              
+            </div>
+            
+            <div class="row" *ngIf="showMsg1Dia">
+              <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+                &nbsp;
+              </div>
+              <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+                <div class="form-check form-checked-form">
+                  <label class="form-check-label">
+                    <input class="form-check-input" id="chkMayor6Horas" (change)="validarMayor6Horas()" type="checkbox">
+                    <span>Mayor a 6 horas</span>
+                  </label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-2 col-lg-2" *ngIf="showPernocta">
+                <div class="form-check form-checked-form">
+                  <label class="form-check-label">
+                    <input class="form-check-input" checked id="chkPernocta" type="checkbox" (change)="setPernocta()">
+                    <span>Pernocta</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row-contenedor">
+              <div class="row form-group margin-bottom-0">
+                <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+                  <label>Motivo comisión:</label>
+                </div>
+                <div class="col-12 col-sm-12 col-md-10 col-lg-10">
+                  <textarea [(ngModel)]="motivocomision" class="form-control" formControlName="motivo" rows="3"></textarea>
+                  <div *ngIf="angularForm.controls['motivo'].invalid && (angularForm.controls['motivo'].dirty || angularForm.controls['motivo'].touched)"
+                    class="alert alert-primary error-msg-alert">
+                    <div *ngIf="angularForm.controls['motivo'].errors.required">
+                      Falta ingresar.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-center panel-border-top-gris">
+        <button type="button" (click)="registrarSolicitud()" class="btn btn-success margin-right-10 btn-actions-form">Registrar</button>
+        <button type="button" (click)="cancelar()" class="btn btn-primary margin-right-10 btn-actions-form">Cancelar</button>
+        <a routerLink="/" class="btn btn-danger btn-actions-form">Salir</a>
+      </div>
+    </div>
+  </form>
+
+  <swal #alertResponse title="{{titleSwal}}" text="{{msgSwal}}" type="{{typeSwal}}" [showCancelButton]="false" [focusCancel]="false">
+  </swal>
+
+</div>

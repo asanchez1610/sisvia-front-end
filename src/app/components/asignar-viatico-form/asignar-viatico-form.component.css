@@ -1,0 +1,12 @@
+.box-terminate{
+    opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}
+
+.table-montos td{
+    padding: 5px !important;
+}
+
+.table-montos th{
+    padding: 8px !important;
+}

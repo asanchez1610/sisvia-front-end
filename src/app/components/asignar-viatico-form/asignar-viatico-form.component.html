@@ -1,0 +1,280 @@
+<div>
+ 
+  <div class="card bg-gris-light panel-border-gris">
+    <div class="card-body card-body-contenedor-form-fields">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="alert {{boxRegistrado}} text-center">
+            <strong class="{{textShadowRegistrado}}" >REGISTRADO</strong>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="alert {{boxAutorizado}} text-center">
+            <strong class="{{textShadowAutorizado}}">AUTORIZADO</strong>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="alert {{boxAsignado}} text-center">
+            <strong class="{{textShadowAsignado}}" >ASIGNADO</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card margin-top-10 bg-gris-light panel-border-gris">
+    <div class="card-body">
+
+      <div class="row-contenedor">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+            <label>Codigo:</label>
+          </div>
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+            <input [(ngModel)]="solicitud.solicitudviaticosId" type="text" class="form-control" disabled>
+          </div>
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+            <label>Fec. Aprobacion:</label>
+          </div>
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+            <input [(ngModel)]="solicitud.fecautoriza" type="text" class="form-control" disabled>
+          </div>
+          <div class="col-12 col-sm-12 col-md-1 col-lg-1 label-form">
+            <label>Área:</label>
+          </div>
+          <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+            <input [(ngModel)]="solicitud.empleadoComisionado.area.nomarea" type="text" class="form-control" disabled>
+          </div>
+        </div>
+      </div>
+
+      <div class="row-contenedor">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+            <label>Comisionado:</label>
+          </div>
+          <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+            <input value="{{solicitud.empleadoComisionado.apellido}} {{solicitud.empleadoComisionado.nombre}}" type="text" class="form-control"
+              disabled>
+          </div>
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+            <label>Presupuesto área:</label>
+          </div>
+          <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+            <input value="{{solicitud.empleadoComisionado.area.centrocosto.presupuesto.presupuestoasignado}}" type="text" class="form-control"
+              disabled>
+          </div>
+        </div>
+      </div>
+
+      <div class="row-contenedor">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+            <label for="txtDni">DNI:</label>
+          </div>
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+            <input type="text" value="{{solicitud.empleadoComisionado.numerodocuento}}" class="form-control" disabled id="txtDni">
+          </div>
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+            <label for="txtCentroCosto">Centro de costo:</label>
+          </div>
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+            <input type="text" value="{{solicitud.empleadoComisionado.area.centrocosto.nomcc}}" class="form-control" disabled id="txtCentroCosto">
+          </div>
+          <div class="col-12 col-sm-12 col-md-1 col-lg-1 label-form">
+            <label for="txtCategoria">Categoría:</label>
+          </div>
+          <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+            <input type="text" value="{{solicitud.empleadoComisionado.categoria.nomcategoria}}" class="form-control" disabled id="txtCategoria">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row-contenedor">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+            <label>Tipo de comision:</label>
+          </div>
+          <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+            <input value="{{solicitud.tipocomision.nomcomision}}" type="text" class="form-control" disabled>
+          </div>
+          <div class="col-12 col-sm-12 col-md-1 col-lg-1 label-form">
+            <label>Destino:</label>
+          </div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+            <input value="{{solicitud.destino.nomdestino}}" type="text" class="form-control" disabled>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+            <div class="form-check form-checked-form">
+              <label class="form-check-label">
+                <input class="form-check-input" disabled [checked]="isZonaCritica" type="checkbox">
+                <span>Zona critica</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row-contenedor">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+              <label>Fecha inicio:</label>
+            </div>
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+              <input value="{{solicitud.fecinicio}}" type="text" class="form-control" disabled>
+            </div>
+            <div class="col-12 col-sm-12 col-md-1 col-lg-1 label-form">
+              <label>Fec. Fin:</label>
+            </div>
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+              <input value="{{solicitud.fecfin}}" type="text" class="form-control" disabled>
+            </div>
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+              <div class="alert alert-success info-diferencia-dias">
+                <strong>Duracion:</strong> {{msgDias}}.
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="showMas6Horas">
+            <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+              &nbsp;
+            </div>
+            <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+              <div class="form-check form-checked-form">
+                <label class="form-check-label">
+                  <input class="form-check-input" [checked]="isHoras" disabled type="checkbox">
+                  <span>Mayor a 6 horas</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+              <div class="form-check form-checked-form">
+                <label class="form-check-label">
+                  <input class="form-check-input" [checked]="isPernocta" disabled type="checkbox">
+                  <span>Pernocta</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row-contenedor">
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-2 col-lg-2 label-form">
+                Motivo comisión:
+              </div>
+              <div class="col-12 col-sm-12 col-md-10 col-lg-10">
+                <textarea value="{{solicitud.motivocomision}}" class="form-control" id="motivoComision" disabled rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card margin-top-10 bg-gris-light panel-border-gris">
+    <ngx-loading [show]="loading" [config]="{ }"></ngx-loading>
+    <div class="card-body card-body-contenedor-busqueda">
+      <div class="row-contenedor" style="margin-bottom: 20px;">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="card border-secondary panel">
+              <ngx-loading [show]="loadingMontos" [config]="{ }"></ngx-loading>
+              <div class="card-body">
+                <h4 class="card-title">Total de Viaticos: {{totalMonto}}</h4>
+                <div class="row" *ngIf="false">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                    <ng-select [items]="items" bindLabel="name" bindValue="id" placeholder="Concepto">
+                    </ng-select>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                    <input type="text" class="form-control" placeholder="Monto" />
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-1">
+                    <button class="btn btn-outline-secondary btn-svg" ngbTooltip="Agregar" type="button">
+                      <img src="assets/img/plus.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <table class="table table-sm table-bordered margin-top-10 table-montos">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th>Concepto</th>
+                      <th>Monto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Viaticos</td>
+                      <td>{{montoViatico}}</td>
+                    </tr>
+                    <tr>
+                      <td>Movilidad</td>
+                      <td>{{montoMovilidad}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div style="width: 100%;margin-top: 5px;text-align: right">
+                  <button (click)="calcularMonto()" [hidden] = "isAsignado"  class="btn btn-success btn-sm">Calcular Monto</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="card border-secondary panel">
+              <div class="card-body">
+                <h4 class="card-title">Tarjeta de crédito</h4>
+
+
+                <div class="row margin-top-5 content-detalle-tarjeta">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-3 label-tarjeta">
+                    Credito:
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                    {{montoCreditoTc}}
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-3 label-tarjeta">
+                    Estado:
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                    {{estadoTc}}
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-3 label-tarjeta">
+                    Fecha Registro:
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                    {{fechaRegistroTc}}
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-3 label-tarjeta">
+                    N° Tarjeta:
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                    {{numTc}}
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-3 label-tarjeta">
+                    N° Cuenta:
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                    {{numCtaTc}}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-center panel-border-top-gris">
+      <button [hidden] = "isAsignado" type="button" (click)="generarTCAndRegistrarViatico()" class="btn btn-success margin-right-10 btn-actions-form">Generar TC y Registrar</button>
+      <a  routerLink="/asignar-viaticos" class="btn btn-danger btn-actions-form">Regresar</a>
+    </div>
+  </div>
+</div>
+
+<swal #alertResponse title="{{titleSwal}}" text="{{msgSwal}}" type="{{typeSwal}}" [showCancelButton]="false" [focusCancel]="false">
+</swal>
