@@ -146,7 +146,6 @@ export class SolicitarViaticoComponent implements OnInit {
     this.showMsgDias = false;
     this.showMsg1Dia = false;
     this.isMasDe5 = false;
-    this.showPernocta = false;
     if (this.fechaInicio && this.fechaFin) {
       let diasDif = this.diferenciasDias(this.fechaFin, this.fechaInicio);
       if (diasDif > 5) {
@@ -190,6 +189,7 @@ export class SolicitarViaticoComponent implements OnInit {
     this.isMayor6Horas = document.getElementById('chkMayor6Horas')['checked'];
     if (this.isMayor6Horas) {
       this.showPernocta = true;
+      this.isPernocta = true;
     } else {
       this.showPernocta = false;
       this.isPernocta = false;
