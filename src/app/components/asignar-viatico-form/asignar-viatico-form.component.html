@@ -23,6 +23,7 @@
   </div>
 
   <div class="card margin-top-10 bg-gris-light panel-border-gris">
+      <ngx-loading [show]="loading" [config]="{ }"></ngx-loading>
     <div class="card-body">
 
       <div class="row-contenedor">
@@ -183,7 +184,7 @@
             <div class="card border-secondary panel">
               <ngx-loading [show]="loadingMontos" [config]="{ }"></ngx-loading>
               <div class="card-body">
-                <h4 class="card-title">Total de Viaticos: {{totalMonto}}</h4>
+                <h4 class="card-title">Total de Viaticos: S/. {{ numberFormat(totalMonto,2) }}</h4>
                 <div class="row" *ngIf="false">
                   <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                     <ng-select [items]="items" bindLabel="name" bindValue="id" placeholder="Concepto">
@@ -203,17 +204,17 @@
                   <thead class="thead-dark">
                     <tr>
                       <th>Concepto</th>
-                      <th>Monto</th>
+                      <th>Monto S/.</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>Viaticos</td>
-                      <td>{{montoViatico}}</td>
+                      <td>{{ numberFormat(montoMovilidad,2) }}</td>
                     </tr>
                     <tr>
                       <td>Movilidad</td>
-                      <td>{{montoMovilidad}}</td>
+                      <td>{{ numberFormat(montoViatico,2) }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -233,10 +234,10 @@
 
                 <div class="row margin-top-5 content-detalle-tarjeta">
                   <div class="col-12 col-sm-12 col-md-12 col-lg-3 label-tarjeta">
-                    Credito:
+                    Credito (S/.):
                   </div>
                   <div class="col-12 col-sm-12 col-md-12 col-lg-9">
-                    {{montoCreditoTc}}
+                    {{ numberFormat(montoCreditoTc,2) }}
                   </div>
                   <div class="col-12 col-sm-12 col-md-12 col-lg-3 label-tarjeta">
                     Estado:
@@ -269,13 +270,35 @@
           </div>
         </div>
       </div>
+      <div class="card border-primary" *ngIf = "superoPresupuesto">
+          <div class="card-header"><b>El Área no cuenta con el presupuesto suficiente. ¿Desea anular la solicitud?</b></div>
+          <div class="card-body">
+              <div class="row form-group margin-bottom-0">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Motivo anulación:</label>
+                  </div>
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <textarea class="form-control"  [(ngModel)] = "motivoCancelacion"  rows="3"></textarea>
+                  </div>
+                </div>
+          </div>
+          <div class="card-footer text-center panel-border-top-gris">
+              <button type="button" (click) = "anularSolicitud()" class="btn btn-primary margin-right-10">Anular solicitud</button>
+              <button type="button" (click) = "cerrarPanelAnulacion()" class="btn btn-default">Cerrar</button>
+        </div>
     </div>
     <div class="card-footer text-center panel-border-top-gris">
       <button [hidden] = "isAsignado" type="button" (click)="generarTCAndRegistrarViatico()" class="btn btn-success margin-right-10 btn-actions-form">Generar TC y Registrar</button>
       <a  routerLink="/asignar-viaticos" class="btn btn-danger btn-actions-form">Regresar</a>
     </div>
   </div>
+
+  
+
 </div>
 
 <swal #alertResponse title="{{titleSwal}}" text="{{msgSwal}}" type="{{typeSwal}}" [showCancelButton]="false" [focusCancel]="false">
 </swal>
+
+ <swal #alertAnulacion title="{{titleSwal}}" text="{{msgSwal}}" type="{{typeSwal}}" [showCancelButton]="false" [focusCancel]="false" [allowEscapeKey]="false" [allowOutsideClick]="false" (confirm)="confirmarAnulacion($event)">
+</swal> 
