@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiServiceService } from '../../services/api-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute , Router } from '@angular/router';
 import { SwalComponent } from '@toverux/ngx-sweetalert2';
 
 @Component({
@@ -11,6 +11,7 @@ import { SwalComponent } from '@toverux/ngx-sweetalert2';
 export class AsignarViaticoFormComponent implements OnInit {
 
   @ViewChild('alertResponse') private alertResponse: SwalComponent;
+  @ViewChild('alertAnulacion') private alertAnulacion: SwalComponent;
 
   loading = true;
   solicitud = null;
@@ -26,7 +27,7 @@ export class AsignarViaticoFormComponent implements OnInit {
   montoViatico = '0.00';
   montoMovilidad = '0.00';
   loadingMontos = false;
-  montoCreditoTc = '--';
+  montoCreditoTc = '0';
   estadoTc = '--';
   fechaRegistroTc = '--';
   numTc = '--';
@@ -40,9 +41,13 @@ export class AsignarViaticoFormComponent implements OnInit {
   textShadowAsignado = '';
 
   isAsignado = false;
+  superoPresupuesto  = false;
+
+  motivoCancelacion = '';
 
   constructor(private apiService: ApiServiceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -148,6 +153,15 @@ export class AsignarViaticoFormComponent implements OnInit {
     }, 100);
   }
 
+   showDialogAnulacion(title, msg, type) {
+     this.titleSwal = title;
+     this.msgSwal = msg;
+     this.typeSwal = type;
+     setTimeout(() => {
+       this.alertAnulacion.show();
+     }, 100);
+   }
+
   calcularMonto() {
     this.loadingMontos = true;
     this.apiService.calcularMonto()
@@ -181,14 +195,13 @@ export class AsignarViaticoFormComponent implements OnInit {
       empleado.area.centrocosto &&
       empleado.area.centrocosto.presupuesto &&
       empleado.area.centrocosto.presupuesto.presupuestoasignado) {
-      if (empleado.area.centrocosto.presupuesto.presupuestoasignado < parseFloat(this.totalMonto)){
+      if (empleado.area.centrocosto.presupuesto.presupuestoasignado > parseFloat(this.totalMonto)){
         this.showDialog('Error', 'El Área no cuenta con el presupuesto suficiente.', 'error');
+        this.superoPresupuesto = true;
         return;
       }
       
     }
-
-    //solicitud.empleadoComisionado.area.centrocosto.presupuesto.presupuestoasignado
 
     let asignacion = {
       "solicitudviaticosId": this.solicitud['solicitudviaticosId'],
@@ -259,6 +272,38 @@ export class AsignarViaticoFormComponent implements OnInit {
 
   getShadowText() {
     return 'text-sombreado';
+  }
+
+  cerrarPanelAnulacion(){
+    this.superoPresupuesto = false;    
+  }
+
+  anularSolicitud(){
+      if(!this.motivoCancelacion){
+          this.showDialog('Error', 'Ingrese el motivo de la anulación.', 'error');
+          return;
+      }
+
+      this.loading = true;
+      this.apiService.anularSolicitud({
+        solicitudviaticosId : this.solicitud['solicitudviaticosId'],
+        motivorechazo : this.motivoCancelacion
+      }).subscribe(
+        (data)=>{
+          this.loading = false;
+          this.showDialogAnulacion('Exito','La solicitud se anuló de forma correcta.','success');
+        },
+        (error)=>{
+          this.loading = false;
+          this.showDialog('Error','La solicitud no pudo ser anulada.','error');
+        }
+      );
+      
+  }
+
+  confirmarAnulacion($event){
+    this.superoPresupuesto = false;   
+    this.router.navigate(['asignar-viaticos']);
   }
 
 }

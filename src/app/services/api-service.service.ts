@@ -30,6 +30,10 @@ export class ApiServiceService {
     return this.http.post<any>(this.apiUrl + 'viatico/solicitud', solicitud, httpOptions)
   }
 
+  anularSolicitud(solicitud): Observable<any> {
+    return this.http.post<any>(this.apiUrl + 'viatico/solicitud/anular', solicitud, httpOptions)
+  }
+
   listarSolicitudes(solicitud): Observable<any> {
     return this.http.post<any>(this.apiUrl + 'viatico/solicitudes', solicitud, httpOptions)
   }
